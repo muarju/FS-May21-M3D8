@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-    <title>FS-May21-M3D8</title>
+    <title>Product Details | FS-May21-M3D8</title>
     <style>
         .product-title{
         font-size: 15px;
@@ -49,15 +49,25 @@
     <section  class="mt-5">
         
         <div class="container">
-            <h3>Our Latest Products</h3>
-            <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-3" id="products-cards">
+            <div class="row" id="products-details">
+                <div class="col-4">
+                    <img class="product-img" src="https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg" height="200px">
+                </div>
+                <div class="col-8">
+                    <h3 class="productName">Product name</h3>
+                    <p>Description: <span class="details">details</span></p>
+                    <span class="price">$00</span>
+                    <div class="button-group">
+                        <button class="btn btn-lg btn-secondary mt-2" type="button">Add to cart</button>
+                    </div>
+                </div>
                 
             </div>
         </div>
     </section>
    
     <script>
-         const getProduct = async (url) => {
+       const getProduct = async (url) => {
             try {
                 const response = await fetch(url,{
                     headers:{
@@ -74,34 +84,26 @@
             }
         }
 
-        const displayProducts = (products) => {
-            const productDiv = document.getElementById("products-cards")
-            let cards=""
-            if (products.length > 0) {
-                products.forEach(productItem => {
-                    cards +=`<div class="col">
-                                <a href="product-details.html?productId=${productItem._id}">
-                                    <div class="card mb-4 shadow-sm">
-                                    <img src=${productItem.imageUrl} class="card-img-top" alt="" height="250px">
-                                    <div class="card-body">
-                                        <h2 class="product-title">${productItem.name}</h2>
-                                        <p class="card-text brand">${productItem.brand}</p>
-                                        <p class="card-text price">$ ${productItem.price}</p>
-                                        <a href="#" class="btn btn btn-secondary btn-block">Buy Now</a>
-                                    </div>
-                                    </div>
-                                </a>
-                            </div>`
-                })
-                productDiv.innerHTML=cards
-            }
+        const displayProductsDetails = (products) => {
+            const productImg=document.querySelector(".product-img")
+            productImg.src=products.imageUrl
+
+            const productName=document.querySelector(".productName")
+            productName.innerHTML=products.name
+
+            const details=document.querySelector(".details")
+            details.innerHTML=products.description
+
+            const price=document.querySelector('.price')
+            price.innerHTML="$"+products.price
 
         }
 
         window.onload = async () => {
-            const url = "https://striveschool-api.herokuapp.com/api/product/"
+            let productId = new URLSearchParams(window.location.search).get("productId")
+            const url = "https://striveschool-api.herokuapp.com/api/product/"+productId
             const products = await getProduct(url)
-            displayProducts(products)
+            displayProductsDetails(products)
         }
     </script>
   
