@@ -50,7 +50,7 @@
         
         <div class="container">
             <h3>Our Latest Products</h3>
-            <div class="row" id="products-cards">
+            <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-3" id="products-cards">
                 
             </div>
         </div>
@@ -79,7 +79,7 @@
             let cards=""
             if (products.length > 0) {
                 products.forEach(productItem => {
-                    cards +=`<div class="col-md-4">
+                    cards +=`<div class="col">
                                 <div class="card mb-4 shadow-sm">
                                     <img src=${productItem.imageUrl} class="card-img-top" alt="" height="250px">
                                     <div class="card-body">
