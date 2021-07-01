@@ -1,7 +1,7 @@
 # FS-May21-M3D8
  Homework
 ** Watch Live from <a href="https://muarju.github.io/FS-May21-M3D8/">here</a> **
-<p>
+```
 You are building the new Amazon.
 This time you are also responsible for the back office.
 THIS is you CRUD endpoint
@@ -37,4 +37,4 @@ POST https://striveschool-api.herokuapp.com/api/account/login
     "username": "testusername@yourmail.com",
     "password":"pass"
 }
-</p>   
+```
