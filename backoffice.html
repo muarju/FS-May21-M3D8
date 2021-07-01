@@ -58,7 +58,6 @@
             <div class="row">
                 <div class="col-12">
                     <h3 class="mb-2">Manage Products</h3>
-                <h4>All Products</h4>
                 <a href="add-product.html" class="btn btn-secondary mb-3 float-right">Add New Product</a>
                 <div id="msg"></div>
                 <table id="productsTable" class="display w-100">
@@ -142,9 +141,13 @@
                 const messagediv=document.querySelector("#msg")
                 messagediv.innerHTML=`
                 <div class="alert alert-danger" role="alert" style="">
-                  product information update successfully
+                  Product deleted successfully
                 </div>
                 `
+                setTimeout(function(){
+                messagediv.innerHTML="";
+                },3000);
+
             }
         }
 
@@ -154,11 +157,13 @@
 
             let productId = new URLSearchParams(window.location.search).get("productId")
             if(productId){
-                url="https://striveschool-api.herokuapp.com/api/product/"+productId
-                console.log(url)
-                const deleteProduct=await deleteproduct(url)
+               const deleteurl="https://striveschool-api.herokuapp.com/api/product/"+productId
+                const deleteProduct=await deleteproduct(deleteurl)
                 const showMessage= await showmessage(deleteProduct)
+                const products = await getProduct(url)
+                displayProducts(products)
             } 
+
             const products = await getProduct(url)
             displayProducts(products)
         }
