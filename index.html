@@ -53,8 +53,12 @@
     <section  class="mt-5">
         
         <div class="container">
+            
             <h3>Our Latest Products</h3>
-            <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-3" id="products-cards">
+            <div id="spinner" class="spinner-border spinner-border-sm text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4" id="products-cards">
                 
             </div>
         </div>
@@ -62,6 +66,7 @@
    
     <script>
          const getProduct = async (url) => {
+            isLoading(true)
             try {
                 const response = await fetch(url,{
                     headers:{
@@ -75,6 +80,10 @@
 
             } catch (err) {
                 console.log(err)
+            }finally {
+                
+                isLoading(false)
+               
             }
         }
 
@@ -107,6 +116,14 @@
             const products = await getProduct(url)
             displayProducts(products)
         }
+        const isLoading = (boolean) => {
+            if (boolean) {
+                document.querySelector("#spinner").classList.remove("d-none")
+            } else {
+                document.querySelector("#spinner").classList.add("d-none")
+            }
+        }
+
     </script>
   
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
